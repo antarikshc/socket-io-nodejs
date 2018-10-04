@@ -20,4 +20,17 @@ var io = socket(server);
 // Create socket connection
 io.on('connection', function(socket){
     console.log("Client " + socket.id + " has been connected!");
+
+    socket.on('message', function(data){
+        console.log(data);
+
+        socket.emit('message', {
+            response: "You sent: " + JSON.stringify(data)
+        });
+    });
+
+    socket.on('disconnect', function(){
+        console.log("Client " + socket.id + " has been disconnected!");
+    });
+
 });
