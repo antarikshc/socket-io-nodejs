@@ -1,0 +1,14 @@
+{
+  "name": "socket-demo-nodejs",
+  "version": "1.0.0",
+  "description": "Demo Express app to Test Socket connection between Backend server and Android app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Antariksh C.",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
