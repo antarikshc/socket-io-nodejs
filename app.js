@@ -17,6 +17,17 @@ app.get('/', function(req, res){
 // Setup Socket on express app
 var io = socket(server);
 
+// Authenticating socket connection
+io.use(function(socket, next){
+    console.log("Query: ", socket.handshake.query);
+    // return the result of next() to accept the connection.
+    if (socket.handshake.query.token == "anx") {
+        return next();
+    }
+    // call next() with an Error if you need to reject the connection.
+    next(new Error('Authentication error'));
+});
+
 // Create socket connection
 io.on('connection', function(socket){
     console.log("Client " + socket.id + " has been connected!");
