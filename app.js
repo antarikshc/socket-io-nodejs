@@ -23,6 +23,10 @@ io.on('connection', function(socket){
 
     socket.on('message', function(data){
         console.log(data);
+
+        socket.emit('message', {
+            response: "You sent: " + JSON.stringify(data)
+        });
     });
 
     socket.on('disconnect', function(){
