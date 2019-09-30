@@ -1,47 +1,46 @@
-var express     = require('express'),
-    app         = express(),
-    socket      = require('socket.io');
-    
+import Express from 'express';
+import socket from 'socket.io';
+
+const app = Express();
 // Set PORT
 app.set('port', 4040);
 
-var server = app.listen(app.get('port'), function(){
-    console.log("Server is running on " + app.get('port'));
+const server = app.listen(app.get('port'), () => {
+  console.log(`Server is running on ${app.get('port')}`);
 });
 
 // Root route greeting message
-app.get('/', function(req, res){
-    res.send("Welcome to Socket.IO demo!");
+app.get('/', (req, res) => {
+  res.send('Welcome to Socket.IO demo!');
 });
 
 // Setup Socket on express app
-var io = socket(server);
+const io = socket(server);
 
 // Authenticating socket connection
-io.use(function(socket, next){
-    console.log("Query: ", socket.handshake.query);
-    // return the result of next() to accept the connection.
-    //if (socket.handshake.query.token == "anx") {
-        return next();
-    //}
-    // call next() with an Error if you need to reject the connection.
-    //next(new Error('Authentication error'));
+io.use((stream, next) => {
+  console.log(`Query: ${stream.handshake.query}`);
+  // return the result of next() to accept the connection.
+  if (stream.handshake.query.token === 'anx') {
+    return next();
+  }
+  // call next() with an Error if you need to reject the connection.
+  return next(new Error('Authentication error'));
 });
 
 // Create socket connection
-io.on('connect', function(socket){
-    console.log("Client " + socket.id + " has been connected!");
+io.on('connect', (client) => {
+  console.log(`Client ${client.id} has been connected!`);
 
-    socket.on('message', function(data){
-        console.log(data);
+  client.on('message', (data) => {
+    console.log(data);
 
-        socket.emit('message', {
-            response: "You sent: " + JSON.stringify(data)
-        });
+    client.emit('message', {
+      response: `You sent: ${JSON.stringify(data)}`,
     });
+  });
 
-    socket.on('disconnect', function(){
-        console.log("Client " + socket.id + " has been disconnected!");
-    });
-
+  client.on('disconnect', () => {
+    console.log(`Client ${client.id} has been disconnected!`);
+  });
 });
