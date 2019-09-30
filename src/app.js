@@ -2,8 +2,8 @@ var express     = require('express'),
     app         = express(),
     socket      = require('socket.io');
     
-// Set port for Heroku
-app.set('port', 5000);
+// Set PORT
+app.set('port', 4040);
 
 var server = app.listen(app.get('port'), function(){
     console.log("Server is running on " + app.get('port'));
@@ -21,15 +21,15 @@ var io = socket(server);
 io.use(function(socket, next){
     console.log("Query: ", socket.handshake.query);
     // return the result of next() to accept the connection.
-    if (socket.handshake.query.token == "anx") {
+    //if (socket.handshake.query.token == "anx") {
         return next();
-    }
+    //}
     // call next() with an Error if you need to reject the connection.
-    next(new Error('Authentication error'));
+    //next(new Error('Authentication error'));
 });
 
 // Create socket connection
-io.on('connection', function(socket){
+io.on('connect', function(socket){
     console.log("Client " + socket.id + " has been connected!");
 
     socket.on('message', function(data){

@@ -4,7 +4,11 @@
   "description": "Demo Express app to Test Socket connection between Backend server and Android app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/antarikshc/socket-io-nodejs"
   },
   "author": "Antariksh C.",
   "license": "ISC",
