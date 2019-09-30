@@ -4,7 +4,7 @@
   "description": "Demo Express app to Test Socket connection between Backend server and Android app",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon --exec babel-node app.js"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,12 @@
   "author": "Antariksh C.",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3",
-    "socket.io": "^2.1.1"
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/node": "^7.6.2",
+    "nodemon": "^1.19.3"
   }
 }
